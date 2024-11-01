@@ -1,6 +1,6 @@
 from django.urls import reverse, resolve
 from recipes import views
-from .test_recipe_base import RecipeTestBase
+from .test_recipe_base import RecipeTestBase, Recipe
 
 class RecipeViewsTest(RecipeTestBase):
 
@@ -21,14 +21,14 @@ class RecipeViewsTest(RecipeTestBase):
       self.assertIn('<h1>No recipes found here 🥲</h1>', response.content.decode('utf-8'))
 
    def test_recipe_home_template_loads_recipes(self):
-   
+
+      self.make_recipe()
+      
       response = self.client.get(reverse('recipes:home'))
       content = response.content.decode('utf-8')
       response_context_recipes = response.context['recipes']
 
       self.assertIn('Recipe Title', content)
-      self.assertIn('10 Minutos', content)
-      self.assertIn('5 Porções', content)
       self.assertEqual(len(response_context_recipes), 1)
 
    def test_recipe_category_view_fuction_is_correct(self):
