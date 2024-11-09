@@ -27,4 +27,4 @@ def category(request, category_id):
     })
 
 def search(request):
-    ...
+    return render(request, 'recipes/pages/search.html')
